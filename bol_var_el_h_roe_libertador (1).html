@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolívar: El Héroe Libertador - Desarrollado por Jhonn Ramírez</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cinzel & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-950 via-slate-900 to-blue-950 min-h-screen text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-white">
+
+    <!-- Top Developer Header Bar -->
+    <header class="bg-black/40 backdrop-blur-md border-b border-amber-500/30 px-6 py-3 flex flex-wrap justify-between items-center text-xs sm:text-sm shadow-lg">
+        <div class="flex items-center space-x-2 text-amber-400 font-cinzel tracking-wider font-bold">
+            <i class="fa-solid fa-shield-halved text-amber-500"></i>
+            <span>BOLÍVAR: EL HÉROE LIBERTADOR</span>
+        </div>
+        <div class="text-slate-300 font-medium">
+            Desarrollado por <span class="text-amber-300 font-bold underline decoration-amber-500/60">Jhonn Ramírez</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6">
+        <div class="w-full max-w-2xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border-2 border-amber-500/40 overflow-hidden text-slate-800 relative">
+            
+            <!-- 1. START SCREEN -->
+            <section id="start-screen" class="screen p-6 sm:p-8 text-center space-y-6">
+                <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto flex flex-col items-center justify-center rounded-full bg-gradient-to-tr from-amber-600 to-yellow-500 border-4 border-amber-400 shadow-2xl p-4 text-white">
+                    <span class="text-3xl sm:text-4xl font-black font-cinzel tracking-wider drop-shadow-md">UBV</span>
+                    <span class="text-[9px] sm:text-[10px] font-semibold text-amber-100 uppercase text-center leading-tight mt-1 px-1">Universidad Bolivariana de Venezuela</span>
+                </div>
+
+                <div class="space-y-2">
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-amber-300">
+                        Trivia Histórica Interactiva
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-black font-cinzel text-amber-950 tracking-wide">
+                        BOLÍVAR: EL HÉROE LIBERTADOR
+                    </h1>
+                    <p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto">
+                        Pon a prueba tus conocimientos sobre la vida, las batallas y el legado del Libertador de América a través de un desafío histórico.
+                    </p>
+                </div>
+
+                <!-- Game Instructions Card -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-left space-y-2 text-xs sm:text-sm text-slate-700 shadow-inner">
+                    <div class="font-bold font-cinzel text-amber-900 flex items-center mb-1">
+                        <i class="fa-solid fa-circle-info mr-2 text-amber-600"></i> Instrucciones de la Gesta:
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 text-slate-600">
+                        <li><strong>Modo Campaña:</strong> Supera 10 niveles progresivos desde Caracas hasta la gloria suprema.</li>
+                        <li><strong>Modo Experto:</strong> Enfréntate a 200 preguntas aleatorias de todo el banco histórico.</li>
+                        <li><strong>Tiempo:</strong> Tienes 30 segundos exactos para responder cada pregunta.</li>
+                        <li><strong>Vidas:</strong> Tienes un máximo de 3 errores permitidos por nivel. ¡No los desperdicies!</li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 justify-center pt-1">
+                    <button onclick="startGame()" class="group relative inline-flex items-center justify-center px-6 py-3.5 font-bold text-white transition-all bg-gradient-to-r from-amber-600 to-yellow-600 rounded-2xl shadow-lg hover:from-amber-700 hover:to-yellow-700 hover:shadow-amber-500/30 hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base">
+                        <i class="fa-solid fa-shield-halved mr-2 text-yellow-200"></i>
+                        <span>Modo Campaña (10 Niveles)</span>
+                    </button>
+                    <button onclick="selectGameMode('expert')" class="inline-flex items-center justify-center px-6 py-3.5 font-bold text-amber-900 transition-all bg-amber-100 border-2 border-amber-400 rounded-2xl shadow-md hover:bg-amber-200 hover:-translate-y-0.5 text-sm sm:text-base">
+                        <i class="fa-solid fa-bolt mr-2 text-amber-600"></i>
+                        <span>Modo Experto (200 Preguntas)</span>
+                    </button>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 text-xs text-slate-500 flex justify-center space-x-6">
+                    <span><i class="fa-solid fa-clock mr-1 text-amber-600"></i> 30s por pregunta</span>
+                    <span><i class="fa-solid fa-heart mr-1 text-rose-500"></i> 3 Vidas permitidas</span>
+                </div>
+            </section>
+
+            <!-- 2. GAME SCREEN -->
+            <section id="game-screen" class="screen hidden p-6 sm:p-8 space-y-6">
+                <!-- HUD / Top Stats -->
+                <div class="flex justify-between items-center bg-slate-100 p-4 rounded-2xl border border-slate-200 text-sm">
+                    <div id="hud-level-container" class="font-bold text-amber-900 font-cinzel">
+                        Nivel <span id="current-level-num">1</span>/10
+                    </div>
+                    <div id="mode-title-badge" class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        Modo Campaña
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-amber-800 font-bold">
+                            <i class="fa-solid fa-star text-amber-500 mr-1"></i> <span id="score-val">0</span> pts
+                        </div>
+                        <div class="text-rose-600 font-bold" title="Errores (máximo 3)">
+                            <i class="fa-solid fa-heart"></i> <span id="errors-count">0</span>/3
+                        </div>
+                        <button onclick="togglePause()" class="text-slate-600 hover:text-amber-700 p-1" title="Pausar juego">
+                            <i class="fa-solid fa-pause text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Timer Bar -->
+                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                    <div id="timer-bar" class="bg-gradient-to-r from-amber-500 to-rose-500 h-full w-full transition-all duration-1000"></div>
+                </div>
+
+                <!-- Question Header -->
+                <div class="flex justify-between items-center text-xs text-slate-500 font-medium">
+                    <span id="question-counter">Pregunta 1 de 10</span>
+                    <span class="text-amber-700 font-bold"><i class="fa-solid fa-hourglass-half mr-1"></i> <span id="timer-val">30</span>s</span>
+                </div>
+
+                <!-- Question Text -->
+                <div class="min-h-[80px] flex items-center justify-center">
+                    <h2 id="question-text" class="text-lg sm:text-xl font-bold font-cinzel text-slate-800 text-center leading-snug">
+                        <!-- Dynamic Question -->
+                    </h2>
+                </div>
+
+                <!-- Options List -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Dynamic Options -->
+                </div>
+
+                <!-- Explanation / Review Box -->
+                <div id="explanation-box" class="hidden bg-amber-50 border border-amber-300 p-4 rounded-xl space-y-2 text-sm text-slate-800 shadow-sm animate-fade-in">
+                    <div class="font-bold font-cinzel text-amber-800 flex items-center">
+                        <i class="fa-solid fa-scroll mr-2"></i> Reseña Histórica:
+                    </div>
+                    <p id="explanation-text" class="text-slate-700 leading-relaxed"></p>
+                </div>
+            </section>
+
+            <!-- 3. LEVEL UP SCREEN -->
+            <section id="levelup-screen" class="screen hidden p-8 text-center space-y-6">
+                <div class="w-20 h-20 mx-auto bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-4xl shadow-inner border border-emerald-300">
+                    <i class="fa-solid fa-medal"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-black font-cinzel text-emerald-900">¡Nivel <span id="completed-level-num">1</span> Superado!</h2>
+                    <p class="text-slate-600">Has demostrado temple y sabiduría en esta etapa de la gesta.</p>
+                </div>
+                <div class="bg-amber-50 border border-amber-300 p-4 rounded-2xl">
+                    <div class="text-xs uppercase text-amber-800 font-bold tracking-wider">Nuevo Rango Militar Obtenido</div>
+                    <div id="earned-rank-title" class="text-xl font-bold font-cinzel text-amber-950 mt-1">Cadete de la Independencia</div>
+                </div>
+                <button onclick="startNextLevel()" class="w-full py-4 font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl shadow-lg hover:from-emerald-700 hover:to-teal-700 transition">
+                    Siguiente Nivel <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </section>
+
+            <!-- 4. FAILED / GAME OVER SCREEN -->
+            <section id="failed-screen" class="screen hidden p-8 text-center space-y-6">
+                <div class="w-20 h-20 mx-auto bg-rose-100 rounded-full flex items-center justify-center text-rose-600 text-4xl shadow-inner border border-rose-300">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-black font-cinzel text-rose-900">¡Derrota en Campaña!</h2>
+                    <p class="text-slate-600">Has superado el límite de 3 errores permitidos en este nivel. ¡Reagrupa tus fuerzas y vuelve a intentarlo!</p>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="retryLevel()" class="flex-1 py-4 font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 rounded-2xl shadow-lg hover:from-rose-700 hover:to-red-700 transition">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Reintentar Nivel
+                    </button>
+                    <button onclick="returnToMainMenu()" class="px-6 py-4 font-bold text-slate-700 bg-slate-200 rounded-2xl hover:bg-slate-300 transition">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 5. VICTORY SCREEN -->
+            <section id="victory-screen" class="screen hidden p-8 text-center space-y-6">
+                <div class="w-24 h-24 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-amber-600 text-5xl shadow-inner border-2 border-amber-400 animate-bounce">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-3xl font-black font-cinzel text-amber-950">¡Gloria al Libertador!</h2>
+                    <p class="text-slate-600">Has completado con honores toda la trayectoria histórica.</p>
+                </div>
+                <div class="bg-amber-50 border border-amber-300 p-5 rounded-2xl space-y-1">
+                    <div class="text-xs uppercase text-amber-800 font-bold tracking-wider">Rango Supremo Alcanzado</div>
+                    <div id="final-rank-title" class="text-2xl font-bold font-cinzel text-amber-950">General en Jefe y Libertador Supremo</div>
+                    <div class="text-sm font-semibold text-slate-700 pt-2">Puntaje Total: <span id="final-score-val" class="text-amber-700 font-bold">0</span> pts</div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="shareScore()" class="flex-1 py-4 font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg hover:from-blue-700 hover:to-indigo-700 transition">
+                        <i class="fa-solid fa-share-nodes mr-2"></i> Compartir Logro
+                    </button>
+                    <button onclick="returnToMainMenu()" class="px-8 py-4 font-bold text-slate-700 bg-slate-200 rounded-2xl hover:bg-slate-300 transition">
+                        Menú Principal
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-5 text-slate-800 border-2 border-amber-500 shadow-2xl animate-fade-in">
+            <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-amber-700 text-2xl">
+                <i class="fa-solid fa-pause"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-cinzel text-amber-950">Juego en Pausa</h3>
+            <p class="text-sm text-slate-600">El tiempo se ha detenido. ¿Qué deseas hacer?</p>
+            <div class="space-y-3">
+                <button onclick="togglePause()" class="w-full py-3 font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-700 transition shadow">
+                    Continuar Partida
+                </button>
+                <button onclick="confirmExitToMenu()" class="w-full py-3 font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+                    Volver al Menú Principal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Confirmation Modal -->
+    <div id="exit-confirm-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-5 text-slate-800 border-2 border-rose-500 shadow-2xl animate-fade-in">
+            <div class="w-16 h-16 mx-auto bg-rose-100 rounded-full flex items-center justify-center text-rose-600 text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-bold font-cinzel text-rose-950">¿Abandonar Partida?</h3>
+            <p class="text-sm text-slate-600">Si regresas al menú principal perderás el progreso actual de tu nivel.</p>
+            <div class="flex gap-3">
+                <button onclick="returnToMainMenu()" class="flex-1 py-3 font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl transition">
+                    Sí, Salir
+                </button>
+                <button onclick="closeExitModal()" class="flex-1 py-3 font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 rounded-xl transition">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black/40 backdrop-blur-md border-t border-amber-500/30 px-6 py-3 text-center text-xs text-slate-400">
+        Bolívar: El Héroe Libertador &bull; Creado con pasión por <strong class="text-amber-300">Jhonn Ramírez</strong> (2026)
+    </footer>
+
+    <!-- GAME LOGIC SCRIPT -->
+    <script>
+        // Expanded master question bank (200 items across 10 levels with historical review)
+        const masterQuestionBank = {
+            1: [
+                { q: "¿En qué ciudad nació Simón Bolívar?", options: ["Caracas", "Bogotá", "Quito", "Lima"], answer: 0, exp: "Simón Bolívar nació en la ciudad de Caracas, Capitanía General de Venezuela, el 24 de julio de 1783." },
+                { q: "¿En qué año nació Simón Bolívar?", options: ["1783", "1790", "1810", "1775"], answer: 0, exp: "El nacimiento del Libertador ocurrió el 24 de julio de 1783 en su casona natal situada en el centro de Caracas." },
+                { q: "¿Cuál era el nombre completo de Simón Bolívar?", options: ["Simón José Antonio de la Santísima Trinidad Bolívar y Palacios", "Simón Pedro Bolívar y Ponte", "Simón Antonio Bolívar de la Rosa", "Simón José Bolívar y Sucre"], answer: 0, exp: "Su nombre de bautizo fue completo y nobiliario, reflejando la estirpe de las familias mantuanas Bolívar y Palacios." },
+                { q: "¿Quién fue el maestro más influyente en la infancia de Bolívar, que le inculcó el amor por la libertad?", options: ["Simón Rodríguez", "Andrés Bello", "Francisco de Miranda", "José Antonio Páez"], answer: 0, exp: "Simón Rodríguez fue su maestro y mentor intelectual, quien le enseñó con pasión sobre filosofía, libertad y republicanismo." },
+                { q: "¿A qué aristocrática familia pertenecía Simón Bolívar en Caracas?", options: ["Mantuana", "Criolla baja", "Realista", "Peninsular"], answer: 0, exp: "La familia Bolívar formaba parte de la élite criolla caraqueña, conocida como los mantuanos, dueños de vastas haciendas y minas." },
+                { q: "¿En qué país actual falleció Simón Bolívar?", options: ["Colombia", "Venezuela", "Perú", "Bolivia"], answer: 0, exp: "Bolívar falleció en la Quinta de San Pedro Alejandrino, ubicada en Santa Marta, Colombia, el 17 de diciembre de 1830." },
+                { q: "¿Cómo se llamaba la madre de Simón Bolívar?", options: ["María Concepción Palacios y Blanco", "María Antonia Bolívar", "Juana Bolívar", "Isabel de la Madriz"], answer: 0, exp: "Doña María Concepción Palacios y Blanco falleció trágicamente cuando Simón era apenas un niño de nueve años." },
+                { q: "¿Cómo se llamaba el padre de Simón Bolívar?", options: ["Juan Vicente Bolívar y Ponte", "Antonio Luis Bolívar", "Feliciano Palacios", "Pedro Liendo"], answer: 0, exp: "Don Juan Vicente Bolívar y Ponte falleció víctima de tuberculosis cuando Simón tenía apenas dos años de edad." },
+                { q: "¿A qué edad quedó Simón Bolívar huérfano de padre y madre?", options: ["Huérfano de padre a los 2 años y de madre a los 9", "A los 18 años", "Nunca quedó huérfano", "A los 5 años"], answer: 0, exp: "La temprana orfandad marcó profundamente su carácter, quedando al cuidado de sus tíos y de su fiel esclava negra Hipólita." },
+                { q: "¿Quién quedó como tutor legal de Bolívar tras la muerte de sus padres?", options: ["Su tío Carlos Palacios", "Simón Rodríguez", "Su abuelo materno", "El Cabildo de Caracas"], answer: 0, exp: "Su tío Carlos Palacios asumió la tutela legal, aunque con frecuencia Simón escapaba para buscar la compañía de Simón Rodríguez." }
+            ],
+            2: [
+                { q: "¿Cómo se llamaba la única esposa de Simón Bolívar, quien falleció joven en Venezuela?", options: ["María Teresa del Toro y Alayza", "Manuela Sáenz", "Josefa Joaquina Sánchez", "Manuelita Saa"], answer: 0, exp: "María Teresa del Toro y Alayza contrajo matrimonio con Bolívar en Madrid en 1802 y falleció de fiebre amarilla en Caracas poco después." },
+                { q: "¿En qué año contrajo matrimonio Simón Bolívar en Madrid?", options: ["1802", "1798", "1805", "1810"], answer: 0, exp: "Tras un noviazgo en España, se casaron en Madrid en 1802 y regresaron a Venezuela, donde ocurrió la tragedia de su muerte." },
+                { q: "¿En qué famosa colina de Roma juró Bolívar consagrar su vida a la libertad de su patria?", options: ["Monte Sacro", "Monte Aventino", "Monte Palatino", "Monte Capitolino"], answer: 0, exp: "En el Monte Sacro (Roma), en agosto de 1805, juró ante su maestro Simón Rodríguez no dar descanso a su brazo ni reposo a su alma hasta romper las cadenas españolas." },
+                { q: "¿En qué año realizó Bolívar su célebre Juramento en el Monte Sacro?", options: ["1805", "1801", "1810", "1820"], answer: 0, exp: "El juramento histórico tuvo lugar el 15 de agosto de 1805 en compañía de Simón Rodríguez y Fernando Rodríguez del Toro." },
+                { q: "¿Qué pensador francés influyó profundamente en las ideas políticas y republicanas de Bolívar?", options: ["Jean-Jacques Rousseau", "Voltaire", "Montesquieu", "Todos los anteriores"], answer: 3, exp: "Bolívar devoró las obras de la Ilustración francesa (Rousseau, Voltaire, Montesquieu), moldeando su visión sobre el contrato social y la república." },
+                { q: "¿A qué continente viajó Bolívar en su juventud para completar su educación y vivir su matrimonio?", options: ["Europa", "Asia", "África", "Norteamérica"], answer: 0, exp: "Viajó extensamente por España, Francia, Italia y otros países europeos, absorbiendo cultura, política y estrategia militar." },
+                { q: "¿Qué trágico suceso tras el matrimonio aceleró la decisión de Bolívar de dedicarse a la política y la independencia?", options: ["La muerte temprana de su esposa por fiebre amarilla", "La quiebra de sus haciendas", "Un destierro del rey", "Un naufragio en alta mar"], answer: 0, exp: "La muerte de María Teresa sumió a Bolívar en un dolor tan profundo que juró no volver a casarse y enfocar toda su energía en redimir a América." },
+                { q: "¿Qué cargo político ostentaba Bolívar al regresar a Caracas tras la muerte de su esposa?", options: ["Ninguno al principio, hasta unirse a la Sociedad Patriótica", "Presidente de la República", "Gobernador de Caracas", "Capitán General"], answer: 0, exp: "Ingresó a la política activa a través de la Sociedad Patriótica, agitando las ideas independentistas tras los sucesos del 19 de abril de 1810." },
+                { q: "¿Quién fue el gran precursor de la independencia americana que se alió con Bolívar en Londres en 1810?", options: ["Francisco de Miranda", "Antonio Nariño", "José de San Martín", "Bernardo O'Higgins"], answer: 0, exp: "Bolívar convenció al Generalísimo Francisco de Miranda de regresar a Venezuela para liderar la lucha por la emancipación." },
+                { q: "¿Qué misión diplomática cumplió Bolívar en Londres junto a Luis López Méndez y Andrés Bello?", options: ["Conseguir apoyo y reconocimiento para la Junta de Caracas", "Comprar armas para los españoles", "Firmar un tratado comercial con Napoleón", "Estudiar leyes británicas"], answer: 0, exp: "Viajaron a Inglaterra en busca de respaldo diplomático y neutralidad benévolas ante el naciente movimiento juntista de Caracas." }
+            ],
+            3: [
+                { q: "¿Qué nombre recibió la primera república independiente proclamada en Venezuela en 1811?", options: ["Confederación Americana de Venezuela / Primera República", "Gran Colombia", "República de Bolívar", "Estado de Venezuela"], answer: 0, exp: "El 5 de julio de 1811 se firmó el Acta de Declaración de Independencia, dando nacimiento formal a la Primera República." },
+                { q: "¿Qué desastre natural sacudió a Caracas el 26 de marzo de 1812, afectando a los patriotas?", options: ["Un devastador terremoto", "Un huracán", "Una gran inundación", "Una erupción volcánica"], answer: 0, exp: "El terremoto del Jueves Santo de 1812 destruyó Caracas y fue interpretado por el clero realista como un castigo divino por la independencia." },
+                { q: "¿Qué militar español lideró la reconquista realista que derrotó a la Primera República?", options: ["Domingo de Monteverde", "Pablo Morillo", "José Tomás Boves", "Juan Domingo de Monteverde"], answer: 0, exp: "El capitán español Domingo de Monteverde aprovechó el desconcierto del terremoto para avanzar con tropas desde Coro y doblegar a los patriotas." },
+                { q: "¿Qué prócer entregó al general español Monteverde al precursor Francisco de Miranda?", options: ["Fue un conjunto de circunstancias que llevó a la capitulación en San Mateo", "Simón Bolívar", "José Félix Ribas", "Santiago Mariño"], answer: 0, exp: "La pérdida de Puerto Cabello y el avance realista forzaron la Capitulación de San Mateo firmada por Miranda en julio de 1812." },
+                { q: "¿Qué documento redactó Bolívar en 1812 analizando las causas de la caída de la Primera República?", options: ["Manifiesto de Cartagena", "Carta de Jamaica", "Discurso de Angostura", "Decreto de Guerra a Muerte"], answer: 0, exp: "En el Manifiesto de Cartagena (1812), Bolívar expuso con agudeza que la debilidad institucional y la tolerancia excesiva arruinaron la república." },
+                { q: "¿Cuál fue la primera gran campaña militar comandada por Bolívar para liberar el occidente de Nueva Granada?", options: ["Campaña Admirable", "Campaña del Sur", "Campaña Libertadora de Nueva Granada", "Campaña de Carabobo"], answer: 0, exp: "La Campaña Admirable (1813) partió desde Cúcuta y permitió a Bolívar barrer a las fuerzas realistas en una serie de fulminantes victorias." },
+                { q: "¿En qué año se llevó a cabo la gloriosa Campaña Admirable?", options: ["1813", "1811", "1815", "1819"], answer: 0, exp: "Entre mayo y agosto de 1813, Bolívar recorrió los Andes venezolanos hasta entrar triunfante a Caracas." },
+                { q: "¿Qué título oficial le otorgó el pueblo de Caracas a Bolívar tras culminar con éxito la Campaña Admirable?", options: ["El Libertador", "Protector de la República", "Generalísimo", "Dictador Supremo"], answer: 0, exp: "La municipalidad de Caracas le aclamó solemnemente como 'El Libertador de Venezuela' en octubre de 1813." },
+                { q: "¿Qué proclama dictó Bolívar en Trujillo en 1813 estableciendo que los españoles serían tratados como enemigos mortales si no abrazaban la causa americana?", options: ["Decreto de Guerra a Muerte", "Decreto de Trujillo", "Proclama de Ocumare", "Manifiesto a los Pueblos"], answer: 0, exp: "El Decreto de Guerra a Muerte (1813) buscaba polarizar el conflicto: 'Españoles y canarios, contad con la muerte, si no obráis en favor de la América'." },
+                { q: "¿Quién fue el héroe juvenil que lideró a los estudiantes y pardos en la heroica Batalla de La Victoria en 1814?", options: ["José Félix Ribas", "Antonio José de Sucre", "Rafael Urdaneta", "José Antonio Páez"], answer: 0, exp: "José Félix Ribas exclamó su famosa arenga: 'No podemos optar entre vencer o morir, necesario es vencer', derrotando a Boves en La Victoria con jóvenes inexpertos." }
+            ],
+            4: [
+                { q: "¿Quiénes fueron los feroces llaneros realistas que diezmaron las fuerzas patriotas durante la Segunda República?", options: ["José Tomás Boves y sus llaneros", "Pablo Morillo", "Juan Manuel de Rosas", "Agustín de Iturbide"], answer: 0, exp: "José Tomás Boves movilizó a las masas llaneras descontentas contra la oligarquía criolla, desatando una guerra social implacable." },
+                { q: "¿Cómo se le conoce a la trágica huida masiva de los habitantes de Caracas ante el avance de Boves en 1814?", options: ["Emigración a Oriente", "La Retirada Heroica", "El Exilio Blanco", "La Gran Marcha"], answer: 0, exp: "Miles de caraqueños abandonaron sus hogares junto a Bolívar para marchar hacia el oriente huyendo de la furia de Boves." },
+                { q: "¿En qué isla caribeña redactó Simón Bolívar su famosa 'Carta de Jamaica' en 1815?", options: ["Jamaica", "Curazao", "Haití", "Trinidad"], answer: 0, exp: "En su célebre Carta de Jamaica (septiembre de 1815), Bolívar profetizó con asombrosa exactitud el destino político de las futuras repúblicas americanas." },
+                { q: "¿Qué líder haitiano brindó refugio, armas y apoyo logístico fundamental a Bolívar en su hora más difícil?", options: ["Aleth Alexandre Pétion", "Jean-Jacques Dessalines", "Toussaint Louverture", "Henri Christophe"], answer: 0, exp: "Alejandro Pétion, presidente de Haití, apoyó generosamente a Bolívar bajo la única condición de abolir la esclavitud en el continente." },
+                { q: "¿Cuál fue la condición principal que puso el presidente de Haití a Bolívar para darle ayuda?", options: ["La abolición de la esclavitud en América", "Que Haití anexara a Venezuela", "El monopolio del café", "La entrega de oro"], answer: 0, exp: "Pétion demostró su visión antiesclavista al exigir que la libertad alcanzara a todos los hombres sin distinción de razas." },
+                { q: "¿Cómo se llamó la expedición militar organizada en Haití en 1816 para reiniciar la lucha independentista?", options: ["Expedición de Los Cayos", "Expedición de Margarita", "Expedición Libertadora", "Expedición del Caribe"], answer: 0, exp: "La Expedición de los Cayos zarpó en 1816 para desembarcar en Margarita y reiniciar las operaciones en tierra firme." },
+                { q: "¿Qué destacado patriota llanero de gran valentía se unió a Bolívar tras la Expedición de los Cayos consolidando los llanos?", options: ["José Antonio Páez", "Manuel Piar", "Santiago Mariño", "José Tadeo Monagas"], answer: 0, exp: "José Antonio Páez, el Centauro de los Llanos, subordinó sus formidables lanceros al mando supremo de Bolívar." },
+                { q: "¿Qué general patriota fue fusilado en 1817 tras un controvertido juicio por insubordinación y conflictos raciales?", options: ["Manuel Piar", "Santiago Mariño", "Carlos Soublette", "José Francisco Bermúdez"], answer: 0, exp: "Manuel Piar, héroe de Guayana, fue condenado por un consejo de guerra en Angostura en medio de tensiones raciales y políticas inevitables de la época." },
+                { q: "¿En qué ciudad guayanesa estableció Bolívar el centro de operaciones y la capital provisional de la República en 1817?", options: ["Angostura (actual Ciudad Bolívar)", "Barcelona", "Cumaná", "Santo Tomé"], answer: 0, exp: "Angostura (hoy Ciudad Bolívar) se convirtió en el bastión seguro a orillas del río Orinoco desde donde se relanzó la república." },
+                { q: "¿Qué importante periódico fundó Bolívar en Guayana en 1818 para difundir las ideas patrióticas?", options: ["Correo del Orinoco", "Gaceta de Caracas", "El Venezolano", "El Libertador"], answer: 0, exp: "Bajo el lema 'Moral y Luces son nuestras primeras necesidades', el Correo del Orinoco contrarrestó la propaganda realista." }
+            ],
+            5: [
+                { q: "¿Ante qué asamblea pronunció Bolívar su célebre Discurso de Angostura el 15 de febrero de 1819?", options: ["El Segundo Congreso de Venezuela", "El Congreso de Cúcuta", "El Congreso de Panamá", "La Convención de Ocaña"], answer: 0, exp: "Ante el Congreso de Angostura, Bolívar presentó su visión constitucional y la necesidad de consolidar la Gran Colombia." },
+                { q: "¿Qué cuarto poder propuso Bolívar en el Discurso de Angostura para moralizar a la sociedad?", options: ["Poder Moral", "Poder Educativo", "Poder Judicial Independiente", "Poder Mediático"], answer: 0, exp: "El Poder Moral debía velar por la probidad ciudadana, la honestidad pública y la educación de los jóvenes en virtudes cívicas." },
+                { q: "¿Qué gran gesta militar en 1819 permitió liberar la Nueva Granada cruzando los Andes?", options: ["Paso de los Andes / Batalla de Boyacá", "Batalla de Carabobo", "Batalla de Pichincha", "Batalla de Junín"], answer: 0, exp: "El cruce del páramo de Pisba sorprendió por completo al ejército español y culminó con la victoria decisiva en Boyacá." },
+                { q: "¿En qué fecha exacta se selló la independencia de Nueva Granada con la brillante Batalla de Boyacá?", options: ["7 de agosto de 1819", "24 de junio de 1821", "6 de diciembre de 1824", "12 de febrero de 1814"], answer: 0, exp: "La batalla del Puente de Boyacá el 7 de agosto de 1819 destruyó el virreinato realista de Nueva Granada en menos de dos horas." },
+                { q: "¿Qué gran nación americana soñó y fundó Bolívar en el Congreso de Angostura, uniendo a Venezuela, Colombia y Ecuador?", options: ["La Gran Colombia (República de Colombia)", "Confederación de los Andes", "Estados Unidos de América del Sur", "República Bolivariana Unida"], answer: 0, exp: "La Gran Colombia fue concebida como un Estado colosal capaz de garantizar la independencia y el equilibrio político en el continente." },
+                { q: "¿Quién fue elegido como primer vicepresidente de la Gran Colombia en 1819?", options: ["Francisco de Paula Santander", "Antonio José de Sucre", "Juan Germán Roscio", "José María del Castillo"], answer: 0, exp: "Francisco de Paula Santander, el 'Hombre de las Leyes', asumió la administración civil de Nueva Granada mientras Bolívar proseguía las campañas." },
+                { q: "¿Qué histórico armisticio y tratado de regularización de la guerra firmó Bolívar con el general español Pablo Morillo en 1820?", options: ["Tratado de Trujillo", "Tratado de Armisticio de Santa Ana", "Tratado de Cúcuta", "Tratado de Guayaquil"], answer: 0, exp: "El Armisticio de Trujillo humanizó la contienda y derogó formalmente el Decreto de Guerra a Muerte bajo normas de derecho internacional." },
+                { q: "¿Qué batalla definitiva el 24 de junio de 1821 aseguró la independencia definitiva de Venezuela?", options: ["Batalla de Carabobo", "Batalla de Boyacá", "Batalla de San Mateo", "Batalla de Araure"], answer: 0, exp: "La sabana de Carabobo vio la maniobra táctica perfecta que deshizo el poderío español en suelo venezolano." },
+                { q: "¿Quién comandó de manera brillante la división de vanguardia patriota en la Batalla de Carabobo?", options: ["José Antonio Páez", "Manuel Cedeño", "Ambrosio Plaza", "Rafael Urdaneta"], answer: 0, exp: "Páez y su bravísima división de infantería y caballería ejecutaron el flanqueo decisivo que rompió el centro realista." },
+                { q: "¿Qué generales patriotas cayeron heroicamente en la Batalla de Carabobo?", options: ["Manuel Cedeño y Ambrosio Plaza", "José Félix Ribas y Girardot", "Antonio Ricaurte y Piar", "Pedro Camejo únicamente"], answer: 0, exp: "Tanto Cedeño como Plaza ofrendaron sus vidas en los momentos culminantes del triunfo venezolano." }
+            ],
+            6: [
+                { q: "¿Qué joven y brillante general venezolano lideró la Campaña del Sur para liberar Ecuador?", options: ["Antonio José de Sucre", "Daniel Florencio O'Leary", "José María Córdova", "Jacinto Lara"], answer: 0, exp: "Antonio José de Sucre demostró ser un estratega militar impecable, conduciendo la campaña andina hasta Quito y Perú." },
+                { q: "¿Qué batalla librada por Sucre el 24 de mayo de 1822 liberó definitivamente a Quito (Ecuador)?", options: ["Batalla de Pichincha", "Batalla de Ayacucho", "Batalla de Bomboná", "Batalla de Junín"], answer: 0, exp: "En las faldas del volcán Pichincha, Sucre logró la victoria que consolidó la independencia ecuatoriana." },
+                { q: "¿En qué famosa ciudad ecuatoriana se reunieron Simón Bolívar y José de San Martín en julio de 1822?", options: ["Guayaquil", "Quito", "Cuenca", "Loja"], answer: 0, exp: "La histórica Entrevista de Guayaquil congregó a los dos grandes libertadores del sur y del norte." },
+                { q: "¿Cuál fue el motivo principal de la retirada de José de San Martín tras la Entrevista de Guayaquil?", options: ["Dejar el camino libre a Bolívar para concluir la campaña del Perú y evitar rivalidades", "Una grave enfermedad tropical", "Una derrota militar", "Falta de recursos económicos"], answer: 0, exp: "San Martín demostró desprendimiento y grandeza al ceder a Bolívar el mando exclusivo para finalizar la guerra de emancipación." },
+                { q: "¿Qué país suramericano invitó oficialmente a Bolívar a asumir el mando supremo para liberarlo del virrey en 1823?", options: ["Perú", "Bolivia", "Chile", "Argentina"], answer: 0, exp: "El Congreso peruano solicitó la intervención directa de Bolívar para conjurar la crisis política y militar frente al virrey." },
+                { q: "¿Qué destacada patriota ecuatoriana fue la compañera sentimental, confidente y heroína de Bolívar?", options: ["Manuela Sáenz", "Manuelita Espejo", "Policarpa Salavarrieta", "Juana Azurduy"], answer: 0, exp: "Manuela Sáenz acompañó a Bolívar en los campos de batalla y en el gobierno, demostrando lealtad y valor inquebrantables." },
+                { q: "¿Qué título militar ostentaba Bolívar al asumir el liderazgo absoluto en el Perú?", options: ["Dictador del Perú", "Rey de los Incas", "Protector Supremo", "Mariscal del Perú"], answer: 0, exp: "El Congreso del Perú le otorgó facultades dictatoriales temporales para reorganizar el ejército y derrotar al virreinato." },
+                { q: "¿Qué batalla de caballería sin uso de pólvora (solo bayonetas y sables) libró Bolívar en Perú en agosto de 1824?", options: ["Batalla de Junín", "Batalla de Ayacucho", "Batalla de Zepita", "Batalla de Pasco"], answer: 0, exp: "La Batalla de Junín se decidió en pocos minutos mediante cargas furiosas de caballería fría al arma blanca." },
+                { q: "¿Quién comandó el ejército patriota en la gloriosa Batalla de Ayacucho por delegación de Bolívar?", options: ["Antonio José de Sucre", "José María Córdova", "Agustín Gamarra", "Guillermo Miller"], answer: 0, exp: "Bolívar confió en Sucre para dirigir la batalla que aniquiló al último gran ejército realista de Sudamérica." },
+                { q: "¿En qué fecha exacta se selló la independencia americana con la firma de la Capitulación de Ayacucho?", options: ["9 de diciembre de 1824", "6 de agosto de 1824", "24 de junio de 1821", "7 de agosto de 1819"], answer: 0, exp: "El 9 de diciembre de 1824, la capitulación del virrey La Serna puso fin formal al dominio colonial español en América del Sur." }
+            ],
+            7: [
+                { q: "¿Qué nueva república hermana creada en el Alto Perú adoptó su nombre en honor al Libertador en 1825?", options: ["Bolivia", "Bolivarilandia", "República del Illimani", "Alto Perú Unido"], answer: 0, exp: "Los congresistas del Alto Perú decidieron nombrar a la nueva nación 'República Bolívar' en gratitud eterna al Libertador." },
+                { q: "¿Quién redactó la primera constitución política de Bolivia a petición expresa de Simón Bolívar?", options: ["Antonio José de Sucre", "Casimiro Olañeta", "Simón Rodríguez", "Andrés de Santa Cruz"], answer: 0, exp: "Sucre supervisó los debates y la estructuración inicial de la carta fundamental redactada por el propio Libertador." },
+                { q: "¿Qué característica principal tenía la Constitución Vitalicia propuesta por Bolívar para Bolivia y la Gran Colombia?", options: ["Presidencia vitalicia con derecho a nombrar sucesor", "Monarquía hereditaria con parlamento", "Democracia directa sin presidente", "Poder absoluto del Congreso"], answer: 0, exp: "Bolívar creía que la presidencia vitalicia evitaba la inestabilidad de las elecciones continuas en sociedades recién salidas de la guerra." },
+                { q: "¿Con qué gran objetivo político convocó Bolívar el Congreso Anfictiónico de Panamá en 1826?", options: ["Crear una confederación de repúblicas hispanoamericanas aliadas", "Repartir el oro de las colonias", "Firmar la paz perpetua con España", "Crear una sola moneda mundial"], answer: 0, exp: "El Congreso de Panamá buscaba un pacto federal de defensa y comercio mutuo frente a potencias extranjeras." },
+                { q: "¿Por qué fracasó en la práctica el Congreso de Panamá de 1826?", options: ["Por falta de respaldo internacional y rivalidades internas de las nacientes repúblicas", "Porque España invadió el congreso", "Porque Bolívar renunció antes de asistir", "Porque no hubo suficientes delegados"], answer: 0, exp: "Las suspicacias regionales y la falta de ratificación de los tratados impidieron concretar la gran liga americana." },
+                { q: "¿Qué grave movimiento separatista estalló en Venezuela en 1826 liderado por José Antonio Páez?", options: ["La Cosiata", "La Revolución de los Siete", "El Grito de Independencia", "La rebelión de los llaneros"], answer: 0, exp: "La Cosiata fue un movimiento de descontento contra el centralismo de Bogotá que exigía autonomía para Venezuela." },
+                { q: "¿Cómo resolvió inicialmente Bolívar el conflicto de 'La Cosiata' con Páez en Venezuela?", options: ["Viajando a Venezuela, dándole un abrazo y reconociéndolo como jefe superior de Venezuela", "Derrotándolo militarmente en Carabobo", "Desterrándolo a Cuba", "Enviándolo a negociar a Europa"], answer: 0, exp: "Con gran pragmatismo político, Bolívar prefirió la reconciliación y nombró a Páez jefe superior civil y militar de Venezuela." },
+                { q: "¿Qué conspiración interna contra la vida de Bolívar ocurrió en Bogotá en septiembre de 1828?", options: ["La Conspiración Septembrina", "La conspiración de la Plaza Mayor", "El atentado de San Carlos", "La asonada del Sagrario"], answer: 0, exp: "Un grupo de opositores asaltó el Palacio de San Carlos en Bogotá la noche del 25 de septiembre de 1828 para asesinar al Libertador." },
+                { q: "¿Qué heroica acción salvó la vida de Bolívar durante el atentado de la Conspiración Septembrina?", options: ["La oportuna intervención y distracción de Manuela Sáenz", "La guardia presidencial", "Un salto por la ventana del palacio", "La llegada de Santander a tiempo"], answer: 0, exp: "Manuela Sáenz entretuvo a los conjurados en la puerta del dormitorio mientras Bolívar saltaba por la ventana hacia el río San Francisco." },
+                { q: "¿Qué apodo histórico se ganó Manuela Sáenz por su valentía en la Conspiración Septembrina?", options: ["La Libertadora del Libertador", "La Amazona de América", "La Madre de la Patria", "La Generala del Sur"], answer: 0, exp: "Fue el propio Bolívar quien le otorgó con justicia el título de 'La Libertadora del Libertador'." }
+            ],
+            8: [
+                { q: "¿Qué guerra internacional estalló entre la Gran Colombia y el Perú entre 1828 y 1829?", options: ["Guerra grancolombo-peruana", "Guerra del Pacífico", "Guerra de los Pasteles", "Guerra del Cauca"], answer: 0, exp: "Las tensiones territoriales y políticas con el gobierno peruano derivaron en un conflicto armado innecesario entre ambas repúblicas hermanas." },
+                { q: "¿Qué brillante general granadino derrotó a las fuerzas peruanas en la Batalla del Portete de Tarqui en 1829?", options: ["José María Córdova y Antonio José de Sucre", "Francisco de Paula Santander", "Joaquín Mosquera", "Juan José Flores"], answer: 0, exp: "Sucre condujo al ejército grancolombo a una victoria defensiva ejemplar en Tarqui, firmando luego el Convenio de Girón." },
+                { q: "¿Qué triste acontecimiento sacudió profundamente el ánimo de Bolívar y debilitó su salud en junio de 1830?", options: ["El asesinato de su gran amigo y mariscal Antonio José de Sucre en Berruecos", "La muerte de Manuela Sáenz", "La pérdida de su caballo Palomo", "Un incendio en su hacienda"], answer: 0, exp: "La vileza del asesinato de Sucre quebrantó el alma de Bolívar, quien exclamó: '¡Se ha derramado la sangre de Abel!'." },
+                { q: "¿En qué lugar exacto fue asesinado el Gran Mariscal de Ayacucho, Antonio José de Sucre?", options: ["Montañas de Berruecos (Pastos, Colombia)", "Cercanías de Quito", "En las afueras de Lima", "En Caracas"], answer: 0, exp: "Una emboscada en la selva montañosa de Berruecos segó la vida del más fiel y puro de los generales patriotas." },
+                { q: "¿Cómo reaccionó Bolívar al enterarse del asesinato de Antonio José de Sucre?", options: ["Dijo con profundo dolor: '¡Se ha derramado la sangre de Abel!'", "Ordenó una invasión inmediata", "Se retiró de la vida pública para siempre", "Escribió un libro de memorias"], answer: 0, exp: "La magnitud del dolor por la pérdida de Sucre aceleró el deterioro físico y moral del Libertador en sus últimos meses." },
+                { q: "¿Qué provincias se separaron definitivamente de la Gran Colombia en 1830 provocando su disolución?", options: ["Venezuela y Ecuador (lideradas por Páez y Flores)", "Panamá y Cundinamarca", "Antioquia y Cartagena", "Guayaquil y Pasto"], answer: 0, exp: "Los apetitos locales y la fragmentación política consumaron la dolorosa separación de los tres países fundadores de la Gran Colombia." },
+                { q: "¿Qué contenía la última proclama firmada por Simón Bolívar en diciembre de 1830?", options: ["Un llamado a la unión y el deseo de que su muerte contribuya a la consolidación de la república", "Una maldición contra sus enemigos políticos", "Instrucciones para dividir sus riquezas", "Una orden de guerra contra España"], answer: 0, exp: "Su testamento político suplicaba la concordia nacional y el cese de los partidos políticos." },
+                { q: "¿Quién fue el médico personal que acompañó a Bolívar en sus últimos días en Santa Marta?", options: ["Alejandro Próspero Reverend", "José María Vargas", "Luis Vernazza", "Pietro de Bono"], answer: 0, exp: "El doctor Reverend atendió con esmero y documentó clínicamente los últimos momentos del Libertador en San Pedro Alejandrino." },
+                { q: "¿En qué hacienda y ciudad colombiana falleció Simón Bolívar el 17 de diciembre de 1830?", options: ["Quinta de San Pedro Alejandrino en Santa Marta", "Hacienda Chuao en Aragua", "Quinta de Bolívar en Bogotá", "Casa de Gobierno en Cartagena"], answer: 0, exp: "La apacible hacienda de San Pedro Alejandrino, cerca de Santa Marta, fue el sitio donde exhaló su último suspiro." },
+                { q: "¿A qué hora exacta se certificó el fallecimiento del Libertador el 17 de diciembre de 1830?", options: ["A la una y tres minutos de la tarde", "A la medianoche", "Al amanecer", "A las seis de la tarde"], answer: 0, exp: "A la 1:03 p.m. del 17 de diciembre de 1830 concluyó la vida terrenal del Padre de la Patria." }
+            ],
+            9: [
+                { q: "¿Qué dispuso el testamento de Bolívar respecto a su espada bicornizada y de oro?", options: ["Que fuera devuelta al Gran Mariscal de Ayacucho (Sucre) o a sus generales más leales", "Que fuera fundida para los pobres", "Que fuera entregada al rey de España", "Que fuera enterrada con él"], answer: 0, exp: "Dispuso que su espada de honor fuera devuelta a Sucre, como símbolo de gloria y libertad republicana." },
+                { q: "¿Qué sucedió con los restos mortales de Simón Bolívar en el año 1842?", options: ["Fueron exhumados y trasladados solemnemente a Caracas en cumplimiento de su voluntad", "Fueron llevados a París", "Permanecieron en Santa Marta para siempre", "Fueron sepultados en Bogotá"], answer: 0, exp: "El gobierno del presidente José Antonio Páez cumplió su deseo póstumo de reposar en su Caracas natal." },
+                { q: "¿En qué monumento histórico nacional descansa actualmente Simón Bolívar en Caracas desde el año 2010?", options: ["Mausoleo del Libertador en el Panteón Nacional", "Catedral de Caracas", "Capitolio Federal", "Plaza Bolívar"], answer: 0, exp: "El majestuoso Mausoleo junto al Panteón Nacional resguarda los restos sagrados del Libertador." },
+                { q: "¿Cuál fue el principal legado político constante en los escritos de Bolívar (como la Carta de Jamaica)?", options: ["La unidad continental hispanoamericana frente a cualquier hegemonía extranjera", "La fragmentación de los países en pequeñas monarquías", "La alianza militar perpetua con Europa", "El aislamiento comercial total"], answer: 0, exp: "Su constante advertencia fue la necesidad de mantener unidos a los pueblos hispanoamericanos para preservar su soberanía." },
+                { q: "¿Qué pensador y libertador cubano, José Martí, consideraba a Bolívar como su máximo referente e inspirador?", options: ["Sí, Martí escribió ensayos memorables como 'Tres Héroes'", "No, Martí era crítico de Bolívar", "Martí jamás conoció la obra de Bolívar", "Martí prefería a los líderes europeos"], answer: 0, exp: "José Martí veneraba a Bolívar y escribió páginas memorables afirmando que lo que no hizo el Libertador, 'está por hacer todavía'." },
+                { q: "¿Cómo se llamó el fiel caballo blanco que acompañó a Bolívar en muchas campañas del sur?", options: ["Palomo", "Rocinante", "Bucefalo", "El Moro"], answer: 0, exp: "Palomo fue el legendario corcel blanco regalado a Bolívar en Pasto y que le acompañó en sus jornadas triunfales." },
+                { q: "¿Qué nombre llevaba el lebrel (perro) favorito que acompañaba a Bolívar en sus viajes?", options: ["Neverí", "Nevado", "Cazador", "Sultán"], answer: 0, exp: "Nevado era un hermoso perro mucuchíes obsequiado al Libertador en la población trujillana de Mucuchíes." },
+                { q: "¿Qué indio y fiel cuidador acompañaba al perro Nevado y murió heroicamente en la Batalla de Carabobo?", options: ["Indio Tinjacá", "Indio Caribay", "Cacique Guaicaipuro", "Pedro Camejo"], answer: 0, exp: "El joven indio Tinjacá, custodio de Nevado, cayó junto al fiel can en la histórica batalla de Carabobo." },
+                { q: "¿Qué pensaba Bolívar acerca de la abolición de la esclavitud en América?", options: ["La decretó y abogó firmemente por ella en reiteradas ocasiones a lo largo de su vida", "Se opuso rotundamente por presión de los hacendados", "La ignoró por completo", "Solo la permitió para los hombres blancos"], answer: 0, exp: "Bolívar manumitió a sus propios esclavos y abogó incansablemente en todos los congresos por la abolición definitiva de la esclavitud." },
+                { q: "¿Qué institución educativa y cultural de gran renombre fundó Bolívar en Trujillo en 1810/1813?", options: ["Escuelas y reformas de instrucción pública y patriótica", "Universidad Central", "Colegio de San Luis", "Academia Militar de Venezuela"], answer: 0, exp: "Su visión impulsó decretos de instrucción pública gratuita para formar ciudadanos conscientes y virtuosos." }
+            ],
+            10: [
+                { q: "¿Cuál es considerada la obra cumbre del pensamiento integracionista y geopolítico de Simón Bolívar?", options: ["La Carta de Jamaica y el Discurso de Angostura", "El Manifiesto de Cartagena", "Los Decretos de Trujillo", "Su testamento político"], answer: 0, exp: "Ambos documentos contienen la radiografía perfecta del proyecto de emancipación continental e integración republicana." },
+                { q: "¿Qué frase célebre pronunció Bolívar al ver las dificultades en el cruce de los Andes?", options: ["'¡Si la naturaleza se opone, lucharemos contra ella y haremos que nos obedezca!'", "'-¡Venceremos o moriremos en el intento!'", "'¡La gloria está reservada para los valientes!'", "'¡Jamás volveremos a ver los llanos!'"], answer: 0, exp: "Esta exclamación ante las adversidades del páramo resume su férrea voluntad indomable." },
+                { q: "¿Qué expresó Bolívar en su última proclama sobre los partidos políticos y las discordias internas?", options: ["'Mis últimos votos son para que la felicidad de la patria sea general... si mi muerte contribuye para que cesen los partidos... volveré al sepulcro'", "'¡Destruid a todos mis rivales políticos sin piedad!'", "'¡Que el país se divida en mil pedazos!'", "'¡No me importa el destino de la república!'"], answer: 0, exp: "Su clamor final suplicaba concordia y unión por encima de las rencillas partidistas." },
+                { q: "¿Cómo califica la historia universal moderna a Simón Bolívar entre los líderes del siglo XIX?", options: ["Como uno de los más grandes genios militares y estadistas de la humanidad", "Como un caudillo menor sin trascendencia", "Como un conquistador imperial tradicional", "Como un político segundario de Sudamérica"], answer: 0, exp: "Historiadores de todo el mundo lo reconocen como el estratega definitivo de la independencia hispanoamericana." },
+                { q: "¿Qué expresaba Bolívar acerca de la educación pública para los pueblos libres?", options: ["'Un ser ignorante es un instrumento ciego de su propia destrucción' y 'Moral y luces son nuestras primeras necesidades'", "La educación es solo para la élite militar", "Los pueblos no necesitan aprender a leer para ser libres", "Las escuelas deben ser privadas exclusivamente"], answer: 0, exp: "Su prédica sobre la educación como pilar de la libertad sigue siendo una directriz ética fundamental." },
+                { q: "¿Qué rol jugó la pluma (escritos, cartas y decretos) a la par de la espada en la vida de Bolívar?", options: ["Fueron igual de poderosas; Bolívar fue un prosista y ensayista brillante", "La espada fue lo único importante", "Escribía muy poco debido a sus deberes en campaña", "Sus cartas fueron quemadas por sus enemigos"], answer: 0, exp: "Dejó miles de cartas y proclamas redactadas con un estilo literario impecable, lúcido y de profunda hondura política." },
+                { q: "¿Qué homenaje rinden múltiples naciones de América (Venezuela, Colombia, Ecuador, Perú, Bolivia) al Padre de la Patria?", options: ["Plazas, estatuas, monedas, himnos y provincias llevan su nombre inmortal", "Ninguno en la actualidad", "Solo una estatua en Caracas", "Fue olvidado por los gobiernos modernos"], answer: 0, exp: "Su impronta geográfica e institucional está presente en cada rincón de la América emancipada." },
+                { q: "¿Cuál fue el destino definitivo de los ideales republicanos y democráticos del Libertador?", options: ["Inspiraron las constituciones y el republicanismo de toda Hispanoamérica", "Quedaron totalmente extintos en el siglo XIX", "Fueron reemplazados por monarquías absolutas", "No tuvieron eco fuera de Caracas"], answer: 0, exp: "Los cimientos institucionales de nuestras repúblicas beben directamente de su pensamiento republicano." },
+                { q: "¿Qué significado profundo tiene el título 'El Libertador' para las generaciones contemporáneas?", options: ["Símbolo supremo de soberanía, dignidad, justicia social y unión de los pueblos libres", "Un título nobiliario temporal sin valor", "Un grado militar puramente honorífico", "Una distinción comercial antigua"], answer: 0, exp: "El título trasciende lo militar para convertirse en sinónimo universal de dignidad y libertad de los pueblos." },
+                { q: "¿Cómo resume la historia el testamento espiritual de Simón Bolívar para la América libre?", options: ["Unión, libertad, constancia, civismo y amor inquebrantable a la patria grande", "Guerra eterna entre vecinos", "Aislamiento comercial y político", "Sumisión ante potencias extranjeras"], answer: 0, exp: "Su ejemplo y doctrina continúan guiando el porvenir de la libertad continental." }
+            ]
+        };
+
+        const levelRanks = {
+            1: "Cadete de la Independencia",
+            2: "Subteniente Patriota",
+            3: "Teniente de Húsares",
+            4: "Capitán de Lanceros",
+            5: "Comandante de Batallón",
+            6: "Coronel del Ejército Libertador",
+            7: "General de Brigada",
+            8: "General de División",
+            9: "Gran Mariscal de la Unión",
+            10: "General en Jefe y Libertador Supremo"
+        };
+
+        let gameMode = 'campaign';
+        let currentLevel = 1;
+        let score = 0;
+        let levelErrors = 0;
+        let currentQuestionIdx = 0;
+        let currentLevelQuestions = [];
+        let timeLeft = 30;
+        let timerInterval = null;
+        let isPaused = false;
+
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function selectGameMode(mode) {
+            gameMode = mode;
+            if (mode === 'expert') {
+                document.getElementById('mode-title-badge').innerText = "MODO EXPERTO (200 Preguntas)";
+                document.getElementById('hud-level-container').classList.add('hidden');
+            } else {
+                document.getElementById('mode-title-badge').innerText = "MODO CAMPAÑA";
+                document.getElementById('hud-level-container').classList.remove('hidden');
+            }
+            switchScreen('game-screen');
+            initGame();
+        }
+
+        function startGame() {
+            selectGameMode('campaign');
+        }
+
+        function initGame() {
+            score = 0;
+            levelErrors = 0;
+            document.getElementById('score-val').innerText = score;
+            document.getElementById('errors-count').innerText = levelErrors;
+
+            if (gameMode === 'expert') {
+                let allPool = [];
+                for (let lvl in masterQuestionBank) {
+                    allPool = allPool.concat(masterQuestionBank[lvl]);
+                }
+                allPool.sort(() => Math.random() - 0.5);
+                currentLevelQuestions = allPool.slice(0, 20);
+                currentQuestionIdx = 0;
+                loadQuestion();
+            } else {
+                currentLevelQuestions = [...masterQuestionBank[currentLevel]];
+                currentLevelQuestions.sort(() => Math.random() - 0.5);
+                currentQuestionIdx = 0;
+                loadQuestion();
+            }
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIdx >= currentLevelQuestions.length) {
+                handleLevelCompletion();
+                return;
+            }
+
+            const expBox = document.getElementById('explanation-box');
+            if (expBox) expBox.classList.add('hidden');
+
+            document.getElementById('current-level-num').innerText = currentLevel;
+            document.getElementById('errors-count').innerText = levelErrors;
+            document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIdx + 1} de ${currentLevelQuestions.length}`;
+
+            const qObj = currentLevelQuestions[currentQuestionIdx];
+            document.getElementById('question-text').innerText = qObj.q;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            let optionsWithIndices = qObj.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            optionsWithIndices.sort(() => Math.random() - 0.5);
+
+            optionsWithIndices.forEach(item => {
+                const isCorrect = (item.originalIndex === qObj.answer);
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-amber-500 hover:bg-amber-50 font-semibold text-slate-700 transition shadow-sm flex items-center justify-between";
+                btn.innerHTML = `<span>${item.text}</span><i class="fa-regular fa-circle text-slate-300"></i>`;
+                btn.onclick = () => checkAnswer(isCorrect, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 30;
+            document.getElementById('timer-val').innerText = timeLeft;
+            const timerBar = document.getElementById('timer-bar');
+            timerBar.style.width = '100%';
+
+            timerInterval = setInterval(() => {
+                if (isPaused) return;
+                timeLeft--;
+                document.getElementById('timer-val').innerText = timeLeft;
+                timerBar.style.width = (timeLeft / 30) * 100 + '%';
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function handleTimeOut() {
+            const allBtns = document.querySelectorAll('#options-container button');
+            allBtns.forEach(b => b.disabled = true);
+            levelErrors++;
+            document.getElementById('errors-count').innerText = levelErrors;
+
+            const qObj = currentLevelQuestions[currentQuestionIdx];
+            const expBox = document.getElementById('explanation-box');
+            const expText = document.getElementById('explanation-text');
+            if (expBox && expText) {
+                expText.innerText = "¡Tiempo agotado! " + (qObj.exp || "");
+                expBox.classList.remove('hidden');
+            }
+
+            setTimeout(() => {
+                if (gameMode === 'campaign' && levelErrors >= 3) {
+                    switchScreen('failed-screen');
+                    return;
+                }
+                if (expBox) expBox.classList.add('hidden');
+                currentQuestionIdx++;
+                loadQuestion();
+            }, 3500);
+        }
+
+        function checkAnswer(isCorrect, btnElement) {
+            clearInterval(timerInterval);
+            const allBtns = document.querySelectorAll('#options-container button');
+            allBtns.forEach(b => b.disabled = true);
+
+            const qObj = currentLevelQuestions[currentQuestionIdx];
+
+            if (isCorrect) {
+                btnElement.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 font-semibold text-emerald-900 transition shadow-sm flex items-center justify-between";
+                btnElement.innerHTML += `<i class="fa-solid fa-check-circle text-emerald-600 text-xl"></i>`;
+                score += 100 + (timeLeft * 5);
+            } else {
+                btnElement.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 font-semibold text-rose-900 transition shadow-sm flex items-center justify-between";
+                btnElement.innerHTML += `<i class="fa-solid fa-times-circle text-rose-600 text-xl"></i>`;
+                levelErrors++;
+                document.getElementById('errors-count').innerText = levelErrors;
+            }
+
+            const expBox = document.getElementById('explanation-box');
+            const expText = document.getElementById('explanation-text');
+            if (expBox && expText) {
+                expText.innerText = qObj.exp || "Hecho histórico relevante en la gesta del Libertador.";
+                expBox.classList.remove('hidden');
+            }
+
+            setTimeout(() => {
+                if (gameMode === 'campaign' && levelErrors >= 3) {
+                    switchScreen('failed-screen');
+                    return;
+                }
+
+                if (expBox) expBox.classList.add('hidden');
+                currentQuestionIdx++;
+                loadQuestion();
+            }, 3500);
+        }
+
+        function handleLevelCompletion() {
+            if (gameMode === 'expert') {
+                document.getElementById('final-score-val').innerText = score;
+                document.getElementById('final-rank-title').innerText = "¡Gran Libertador Experto!";
+                switchScreen('victory-screen');
+                return;
+            }
+
+            document.getElementById('completed-level-num').innerText = currentLevel;
+            document.getElementById('earned-rank-title').innerText = levelRanks[currentLevel];
+            switchScreen('levelup-screen');
+        }
+
+        function startNextLevel() {
+            currentLevel++;
+            if (currentLevel > 10) {
+                document.getElementById('final-score-val').innerText = score;
+                document.getElementById('final-rank-title').innerText = levelRanks[10];
+                switchScreen('victory-screen');
+            } else {
+                levelErrors = 0;
+                switchScreen('game-screen');
+                initGame();
+            }
+        }
+
+        function retryLevel() {
+            levelErrors = 0;
+            switchScreen('game-screen');
+            initGame();
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            const pauseModal = document.getElementById('pause-modal');
+            if (isPaused) {
+                pauseModal.classList.remove('hidden');
+            } else {
+                pauseModal.classList.add('hidden');
+            }
+        }
+
+        function confirmExitToMenu() {
+            document.getElementById('pause-modal').classList.add('hidden');
+            document.getElementById('exit-confirm-modal').classList.remove('hidden');
+        }
+
+        function closeExitModal() {
+            document.getElementById('exit-confirm-modal').classList.add('hidden');
+            if (isPaused) togglePause();
+        }
+
+        function returnToMainMenu() {
+            document.getElementById('exit-confirm-modal').classList.add('hidden');
+            document.getElementById('pause-modal').classList.add('hidden');
+            isPaused = false;
+            currentLevel = 1;
+            score = 0;
+            switchScreen('start-screen');
+        }
+
+        function shareScore() {
+            const text = `¡He alcanzado ${score} puntos y el rango de "${levelRanks[currentLevel] || 'Libertador'}" en el juego de Simón Bolívar desarrollado por Jhonn Ramírez! 🇻🇪✨`;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("¡Puntaje copiado al portapapeles para compartir!");
+                });
+            } else {
+                alert(text);
+            }
+        }
+
+        // Ensure global binding
+        window.startGame = startGame;
+        window.selectGameMode = selectGameMode;
+        window.startNextLevel = startNextLevel;
+        window.retryLevel = retryLevel;
+        window.togglePause = togglePause;
+        window.confirmExitToMenu = confirmExitToMenu;
+        window.closeExitModal = closeExitModal;
+        window.returnToMainMenu = returnToMainMenu;
+        window.shareScore = shareScore;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            switchScreen('start-screen');
+        });
+    </script>
+</body>
+</html>
